@@ -47,8 +47,7 @@ public class Converter {
 		write.close();
 		
 		//Load .classpath file
-		File classPath = new File("toCopy/.classpath");
-		scan = new Scanner(classPath);
+		scan = new Scanner(Converter.class.getResourceAsStream("toCopy/classpath.txt"));
 		
 		//write new .classpath file
 		write = new FileWriter(new File(file.getParent() + "\\.classpath"));
@@ -63,8 +62,7 @@ public class Converter {
 		src.mkdir();
 		
 		//Load Main.java
-		File main = new File("toCopy/Main.java");
-		scan = new Scanner(main);
+		scan = new Scanner(Converter.class.getResourceAsStream("toCopy/Main.txt"));
 		
 		//write new Main.java file
 		write = new FileWriter(new File(src.getPath() + "\\Main.java"));
