@@ -11,22 +11,25 @@ public class Converter {
 
 	public Converter() throws IOException {
 		
-		JFileChooser choose = new JFileChooser("C:\\Users\\cam80\\git\\Java-Fast-IO\\");
+		String gitFolder = System.getProperty("user.home") + "\\git";
+		
+		//Get .project File
+		JFileChooser choose = new JFileChooser(gitFolder);
 		choose.showOpenDialog(null);
 		File file = choose.getSelectedFile();
 		Scanner scan = new Scanner(file);
 		
+		//Read project file
 		List<String> lines = new ArrayList<>();
 		while (scan.hasNextLine()){
 			lines.add(scan.nextLine());
 		}
-		
 		scan.close();
 		
 		System.out.println(file.getPath());
-		FileWriter write = new FileWriter(new File(file.getPath() + "1"));
-		//FileWriter write = new FileWriter(file);
+		FileWriter write = new FileWriter(file);
 		
+		//Write new .project file
 		for (String line : lines){
 			
 			write.write(line + "\n");
@@ -43,16 +46,33 @@ public class Converter {
 		}
 		write.close();
 		
-		File classPath = new File("src/.classpath");
+		//Load .classpath file
+		File classPath = new File("toCopy/.classpath");
 		scan = new Scanner(classPath);
-		write = new FileWriter(new File(file.getPath() + "2"));
 		
+		//write new .classpath file
+		write = new FileWriter(new File(file.getParent() + "\\.classpath"));
 		while (scan.hasNextLine())
 			write.write(scan.nextLine() + "\n");
 		
 		scan.close();
 		write.close();
 		
+		//Create src folder
+		File src = new File(file.getParent() + "\\src");
+		src.mkdir();
+		
+		//Load Main.java
+		File main = new File("toCopy/Main.java");
+		scan = new Scanner(main);
+		
+		//write new Main.java file
+		write = new FileWriter(new File(src.getPath() + "\\Main.java"));
+		while (scan.hasNextLine())
+			write.write(scan.nextLine() + "\n");
+		
+		scan.close();
+		write.close();	
 	}
 
 	public static void main(String[] args) {
@@ -62,5 +82,4 @@ public class Converter {
 			e.printStackTrace();
 		}
 	}
-
 }
