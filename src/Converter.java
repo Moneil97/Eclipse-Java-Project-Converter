@@ -15,18 +15,18 @@ public class Converter {
 		
 		//Get .project File
 		JFileChooser choose = new JFileChooser(gitFolder);
+		choose.setDialogTitle("Select \".project\" file");
 		choose.showOpenDialog(null);
 		File file = choose.getSelectedFile();
 		Scanner scan = new Scanner(file);
 		
 		//Read project file
 		List<String> lines = new ArrayList<>();
-		while (scan.hasNextLine()){
+		while (scan.hasNextLine())
 			lines.add(scan.nextLine());
-		}
+			
 		scan.close();
 		
-		System.out.println(file.getPath());
 		FileWriter write = new FileWriter(file);
 		
 		//Write new .project file
